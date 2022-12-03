@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body class="container">
+
+    <main>
+        <!-- header -->
+        <div class="certificate_header">
+            <section>
+                <p>Certified Professional</p>
+                <h1>Certificate of Completion</h1>
+            </section>
+            <div class="underline"></div>
+        </div>
+
+        <!-- body -->
+        <div class="certificate_body">
+            <section>
+                <div class="mb-5">
+                    <p>COURSE:</p>
+                    <h2><%= track %></h2>
+                </div>
+
+                <div class="mb-5">
+                    <h1><%= name %></h1>
+                    <p>has successfully participated & completed this programme.</p>
+                </div>
+
+                <div class="mb-5">
+                    <h3>NOW A:</h3>
+                    <p><%= track %></p>
+                </div>
+            </section>
+            <div class="underline"></div>
+
+            <div class="signature">
+                <p>Nwamaka Nwosu</p>
+                <p>(CIO) Chief Information Officer</p>
+                <p>Top Universe</p>
+            </div>
+        </div>
+
+        <!-- footer -->
+
+        <div class="certificate_footer">
+            <section>
+                <div style="display: flex; justify-content:space-between">
+                    <p>https://topuniverse.org</p>
+                    <p>Certificate ID: <%= certificateId %></p>
+                    <p>Date issued: <%= endDate %></p>
+                </div>
+            </section>
+        </div>
+    </main>
+</body>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Nunito Sans" !important;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: 'Space Grotesk', sans-serif;
+    }
+
+    main {
+        height: 100vh;
+        width: 100%;
+        position: relative;
+        background-color: black;
+        display: grid;
+        grid-template-rows: 25% 65% 10%;
+    }
+
+    .underline {
+        height: 15px;
+        background-color: rgb(61, 2, 157);
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+
+
+    .certificate_header {
+        position: relative;
+        display: grid;
+        place-items: center;
+    }
+
+    .certificate_header p {
+        font-size: 20px;
+        color: white
+    }
+
+    .certificate_header h1 {
+        font-size: 50px;
+        color: white
+    }
+
+
+    .certificate_footer {
+        position: relative;
+        display: grid;
+        place-items: center;
+    }
+    .certificate_footer > *{
+        color: white;
+    }
+
+    .certificate_body {
+        position: relative;
+        background-color: white;
+        display: grid;
+        place-items: center;
+    }
+
+    .certificate_body p {
+        font-size: 20px;
+        margin-bottom: 1em;
+    }
+    .certificate_body h1 {
+        font-size: 50px;
+    }
+
+    .certificate_body .signature {
+        position: absolute;
+        bottom: 50px;
+        right: 100px;
+    }
+
+    .certificate_body .underline {
+        background-color: gray;
+    }
+
+    .white {
+        color: white
+    }
+
+    .black {
+        color: black
+    }
+
+    section {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    /* utilities */
+    .mb-2 {
+        margin-bottom: 20px;
+    }
+    .mb-3 {
+        margin-bottom: 30px;
+    }
+    .mb-4 {
+        margin-bottom: 40px;
+    }
+    .mb-5 {
+        margin-bottom: 50px;
+    }
+</style>
+
+</html>
