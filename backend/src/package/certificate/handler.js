@@ -4,6 +4,7 @@ const {Certificate} = require('./model')
 
 
 Router.post("/create", async (req,res) => {
+    // perform validation using joi or zod
     const {name, track, startDate, endDate, programme, picture} = req.body
     let certificate = new Certificate(name, track, startDate ,endDate, programme, picture)
     let result = await certificate.generate()

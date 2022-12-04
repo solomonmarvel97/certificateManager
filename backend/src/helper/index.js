@@ -11,7 +11,7 @@ exports.generateDownloadableCertificateLink = async (certificateId) => {
   const page = await browser.newPage();
   
   // Website URL to export as pdf
-  const certificateUrl = new URL(`http://localhost:3000/certificate?certificateId=${certificateId}`); 
+  const certificateUrl = new URL(`http://localhost:3001/certificate?certificateId=${certificateId}`); 
 
   // Open URL in current page
   await page.goto(certificateUrl.href, { waitUntil: 'networkidle0' }); 

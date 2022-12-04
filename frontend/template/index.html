@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Manager</title>
+    <link href="./index.css" rel="stylesheet"/>
+</head>
+<body>
+    <section>
+        <main>
+            <!-- certificate form  -->
+            <div class="certificate-form">
+                <form>
+                    <!-- full name -->
+                    <div class="content-wrapper">
+                        <label for="name">Full Name</label>
+                        <input class="form-control" id="name" type="text" placeholder="E.g John Doe">
+                    </div>
+
+                    <!-- track -->
+                    <div class="content-wrapper">
+                        <label for="track">Track</label>
+                        <select class="form-control" id="track">
+                            <option>Select Track</option>
+                            <option value="Frontend Engineering">Frontend Engineering</option>
+                            <option value="Backend Engineering">Backend Engineering</option>
+                            <option value="UI/UX">UI/UX Design</option>
+                        </select>
+                    </div>
+
+                    <!-- programme -->
+                    <div class="content-wrapper">
+                        <label for="programme">Programme</label>
+                        <select class="form-control" id="programme">
+                            <option>Select Programme</option>
+                            <option value="Cohort 1.0">Cohort 1.0</option>
+                            <option value="Cohort 2.0">Cohort 2.0</option>
+                        </select>
+                    </div>
+
+                    <!-- start date -->
+                    <div class="content-wrapper">
+                        <label for="start_date">Start Date</label>
+                        <input class="form-control" id="start_date" type="date">
+                    </div>
+
+                    <!-- end date -->
+                    <div class="content-wrapper">
+                        <label for="end_date">End Date</label>
+                        <input class="form-control" id="end_date" type="date">
+                    </div>
+
+                    <!-- file upload -->
+                    <div class="content-wrapper file-upload">
+                        <label for="file_upload">
+                            <div>
+                                <img class="icon-big mb-1" src="./assets/icons/upload-icon.svg" alt="upload icon"/>
+                                <p class="mb-1">Upload Picture</p>
+                                <p class="description mb-1">Or you can simply drag and drop</p>
+                            </div>
+                        </label>
+                        <input class="form-control" id="file_upload" type="file">
+                    </div>
+
+                    <div>
+                        <button class="button-primary">Generate Certifiate</button>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- certicate view -->
+            <div class="certificate-view">
+                <p class="mb-2">Ceretificate View</p>
+                <div class="certificate">
+                    <button class="button-black">Download</button>
+                </div>
+            </div>
+        </main>
+    </section>
+</body>
+
+</html>
