@@ -51,12 +51,12 @@ class Certificate {
         // compose the certificate object
         let certificateObject = {
             certificateId: this.#generateUniqueID(),
-            name: this.name,
-            track: this.track,
-            startDate: this.startDate,
-            endDate: this.endDate,
-            programme: this.programme,
-            picture: this.picture,
+            name: this.#name,
+            track: this.#track,
+            startDate: this.#startDate,
+            endDate: this.#endDate,
+            programme: this.#programme,
+            picture: this.#picture,
         }
 
         // save certificate to mongodb

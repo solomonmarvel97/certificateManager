@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
+    "@nuxtjs/toast": "^3.3.1",
     "@pdftron/webviewer": "^8.10.0",
     "core-js": "^3.25.3",
     "nuxt": "^2.15.8",

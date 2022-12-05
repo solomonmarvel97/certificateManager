@@ -197,7 +197,7 @@ form .file-upload input[type="file"]{
 
 /* buttons */
 button {
-    min-width: 150px;
+    width: 150px;
     height: 25px;
     border-radius: var(--border-radius);
     border: none;
@@ -219,7 +219,7 @@ button {
 /* index page */
 main {
     display: grid;
-    grid-template-columns: 40% 60%;
+    grid-template-columns: 35% 65%;
     gap: 50px;
     height: 100vh;
     align-items: center;
@@ -228,6 +228,13 @@ main {
 main > div {
     flex: 1;
     flex-basis: 300px;
+}
+
+@media (max-width: 1000px) {
+    main {
+        display: flex;
+        flex-wrap: wrap;
+    } 
 }
 
 main .certificate-form {}
@@ -246,4 +253,27 @@ main .certificate-view .certificate button {
     position: absolute;
     bottom: 10px;
     right: 10px;
+}
+
+/* flex-wrap deaults */
+
+.flex-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    align-items: center;
+}
+.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    gap: 5px;
+}
+
+
+.flex-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    align-items: center;
 }

@@ -7,6 +7,7 @@ const express = require('express')
 const formidable = require('express-formidable')
 const app = express()
 const cors = require('cors')
+app.use( express.static( "public" ) );
 // set the view engine to ejs
 
 app.set('view engine', 'ejs');

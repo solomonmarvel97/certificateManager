@@ -1,14 +1,32 @@
 const fs = require('fs');
 const Router = require('express').Router()
-const {Certificate} = require('./model')
+const {Certificate} = require('./model');
+const { createCertificateSchema } = require('./schema');
 
 // generate certificate
 Router.post("/create", async (req,res) => {
     // perform validation using joi
+    try {
+    let validator = await schemaValidator(req.body, createCertificateSchema)
+    if (!validator.isValid) {
+        throw validator.error
+    }
+
     const {name, track, startDate, endDate, programme, picture} = req.body
+    console.log(req.body)
     let certificate = new Certificate(name, track, startDate ,endDate, programme, picture)
     let result = await certificate.generate()
+    
+    result.status = "ok"
+    result.message = "Certificate Generated Successfully"
     res.json(result)
+    }
+    catch(err) {
+        console.log(err)
+        res.status(422).json({
+            error: err.message
+        })
+    }
 })
 
 // Download certificate

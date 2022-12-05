@@ -76,7 +76,6 @@
 
 <script>
 export default {
-  layout: "web",
   data() {
     return {
       certificate: {
@@ -84,9 +83,9 @@ export default {
         track: "",
         programme: "",
         startDate: "",
-        endDate: ""
+        endDate: "",
+        picture: "https://avatars.dicebear.com/api/adventurer/bendex.svg",
       },
-      picture: "https://avatars.dicebear.com/api/adventurer/bendex.svg",
       loading: false,
       pdfsource: null,
     }
@@ -108,10 +107,9 @@ export default {
       this.loading = true
       await axios(config).then(response => {
         console.log(response.data.data)
-        this.$toast.success(response.data.message).goAway(3000)
         this.pdfsource = response.data.url
       }).catch(error => {
-        this.$toast.error(error.response.data.error).goAway(3000)
+        console.log(error)
       }).finally(() => {
         this.loading = false
       })

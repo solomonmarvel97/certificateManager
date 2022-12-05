@@ -7,9 +7,16 @@
         <!-- header -->
         <div class="certificate_header">
             <section>
-                <p>Certified Professional</p>
-                <h1>Certificate of Completion</h1>
+                <div class="content">
+                    <div>
+                        <img src="logo.svg" class="logo mb-2" alt="logo" />
+                        <p>Certified Professional</p>
+                        <h1>Certificate of Completion</h1>
+                    </div>
+                    <img src="badge.svg" class="badge mb-2" alt="badge" />
+                </div>
             </section>
+
             <div class="underline"></div>
         </div>
 
@@ -33,10 +40,13 @@
             </section>
             <div class="underline"></div>
 
-            <div class="signature">
-                <p>Nwamaka Nwosu</p>
-                <p>(CIO) Chief Information Officer</p>
-                <p>Top Universe</p>
+            <div class="signature-wrapper">
+                <div>
+                    <img src="signature.svg" class="signature mb-2" alt="signature" />
+                    <p>Nwamaka Nwosu</p>
+                    <p>(CIO) Chief Information Officer</p>
+                    <p>Top Universe</p>
+                </div>
             </div>
         </div>
 
@@ -80,7 +90,7 @@
         position: relative;
         background-color: black;
         display: grid;
-        grid-template-rows: 25% 65% 10%;
+        grid-template-rows: 30% 60% 10%;
     }
 
     .underline {
@@ -92,12 +102,23 @@
         left: 0;
     }
 
-
     .certificate_header {
         position: relative;
-        display: grid;
-        place-items: center;
     }
+
+    .certificate_header section {
+        height: 100%;
+        display: grid;
+        align-items: center;
+    }
+
+    .certificate_header .content {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
 
     .certificate_header p {
         font-size: 20px;
@@ -115,7 +136,8 @@
         display: grid;
         place-items: center;
     }
-    .certificate_footer > *{
+
+    .certificate_footer>* {
         color: white;
     }
 
@@ -130,11 +152,12 @@
         font-size: 20px;
         margin-bottom: 1em;
     }
+
     .certificate_body h1 {
         font-size: 50px;
     }
 
-    .certificate_body .signature {
+    .certificate_body .signature-wrapper {
         position: absolute;
         bottom: 50px;
         right: 100px;
@@ -161,14 +184,35 @@
     .mb-2 {
         margin-bottom: 20px;
     }
+
     .mb-3 {
         margin-bottom: 30px;
     }
+
     .mb-4 {
         margin-bottom: 40px;
     }
+
     .mb-5 {
         margin-bottom: 50px;
+    }
+
+    .logo {
+        height: 47px;
+        width: 47px;
+        object-fit: cover;
+    }
+
+    .badge {
+        height: 184px;
+        width: 184px;
+        object-fit: cover;
+    }
+
+    .icon {
+        height: 16px;
+        width: 16px;
+        object-fit: cover;
     }
 </style>
 
