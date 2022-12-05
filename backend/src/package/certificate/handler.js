@@ -2,17 +2,17 @@ const fs = require('fs');
 const Router = require('express').Router()
 const {Certificate} = require('./model')
 
-
+// generate certificate
 Router.post("/create", async (req,res) => {
-    // perform validation using joi or zod
+    // perform validation using joi
     const {name, track, startDate, endDate, programme, picture} = req.body
     let certificate = new Certificate(name, track, startDate ,endDate, programme, picture)
     let result = await certificate.generate()
     res.json(result)
 })
 
-// Where fileName is name of the file and res is Node.js Reponse. 
-Router.get("/certificate/:certificateId", async (req, res) => {
+// Download certificate
+Router.get("/certificate/download/:certificateId", async (req, res) => {
     // or any file format
     const filePath = `${AppConfig.BaseDirectory}/uploads/certificates/pdf/${req.params.certificateId}.pdf`;
 
@@ -30,6 +30,21 @@ Router.get("/certificate/:certificateId", async (req, res) => {
         }
         res.writeHead(400, { "Content-Type": "text/plain" });
         res.end("ERROR File does not exist");
+    });
+})
+
+// Render certificate
+Router.get("/certificate/:certificateId", async (req, res) => {
+    // or any file format
+    const filePath = `${AppConfig.BaseDirectory}/uploads/certificates/pdf/${req.params.certificateId}.pdf`;
+
+    // Check if file specified by the filePath exists
+    fs.exists(filePath, function (exists) {
+        if (exists) {
+            var data =fs.readFileSync(filePath);
+            res.contentType("application/pdf");
+            res.send(data);
+        }
     });
 })
 

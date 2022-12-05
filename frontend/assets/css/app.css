@@ -201,28 +201,28 @@ button {
     height: 25px;
     border-radius: var(--border-radius);
     border: none;
+    cursor: pointer;
 }
 
 /* primary button */
 .button-primary {
-    background: var(--primary-color);
-    color: var(--white-color)
+    background: var(--primary-color) !important;
+    color: var(--white-color) !important
 }
 
 /* secondary button */
 .button-black {
-    background: var(--black-color);
-    color: var(--white-color)
+    background: var(--black-color) !important;
+    color: var(--white-color) !important
 }
 
 /* index page */
 main {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    height: 100vh;
+    display: grid;
+    grid-template-columns: 40% 60%;
     gap: 50px;
+    height: 100vh;
+    align-items: center;
 }
 
 main > div {
@@ -235,7 +235,7 @@ main .certificate-form {}
 main .certificate-view {}
 
 main .certificate-view .certificate {
-    height: 280px;
+    height: 400px;
     width: 100%;
     position: relative;
     background-color: var(--secondary-color);

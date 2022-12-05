@@ -1,6 +1,7 @@
 require('dotenv').config()
 require('./src/database')
 require('./src/config')
+require('./src/helper')
 
 const express = require('express')
 const formidable = require('express-formidable')

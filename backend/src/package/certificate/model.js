@@ -1,5 +1,4 @@
 const { v4 } = require('uuid')
-const { generateDownloadableCertificateLink } = require('../../helper')
 const { db } = require('../../database')
 const collection = db.collection('certificates');
 
@@ -22,32 +21,36 @@ class Certificate {
      * @param {String} programme
      * @param {String} picture
     */
+        #name
+        #track
+        #startDate
+        #endDate
+        #programme
+        #picture
+
     constructor(name, track, startDate, endDate, programme, picture) {
-        this.name = name
-        this.track = track
-        this.startDate = startDate,
-        this.endDate = endDate,
-        this.programme = programme
-        this.picture = picture
+        this.#name = name
+        this.#track = track
+        this.#startDate = startDate,
+        this.#endDate = endDate,
+        this.#programme = programme
+        this.#picture = picture
     }
 
-    /**
-     * generate() -> This method creates and save the certificate 
-     * by calling the saveCertificateToDB method
-    */
+    // This method creates and save the certificate 
     async generate() {
         // generate certificate id
-        let certificateId = this.generateUniqueID()
+        let certificateId = this.#generateUniqueID()
         
         // check if certificate id already exists
-        let result = await this.certificateIdExists(certificateId)
+        let result = await this.#certificateIdExists(certificateId)
         if(result) {
             throw Error('The certificate ID already exists')
         }
         
         // compose the certificate object
         let certificateObject = {
-            certificateId: this.generateUniqueID(),
+            certificateId: this.#generateUniqueID(),
             name: this.name,
             track: this.track,
             startDate: this.startDate,
@@ -57,19 +60,19 @@ class Certificate {
         }
 
         // save certificate to mongodb
-        this.saveCertificateDataToDB(certificateObject)
+        this.#saveCertificateDataToDB(certificateObject)
 
         // attach certificate url to certificate object
-        certificateObject.url =`http://localhost:3000/certificate?certificateId=${certificateObject.certificateId}`
+        certificateObject.url =`http://localhost:3001/certificate/${certificateObject.certificateId}`
 
         // generate certificate pdf and url
-        await generateDownloadableCertificateLink(certificateObject.certificateId) // call the certificate generator function
+        await certificateGenerator(certificateObject.certificateId)
 
         return certificateObject
     }
 
-    async certificateIdExists(certificateId) {
-        //check to make sure certificate id doesn't exist already
+    //check to make sure certificate id doesn't exist already
+    async #certificateIdExists(certificateId) {
         return await collection.findOne({ "certificateId": certificateId })
         .then(data => {
             if (data) {
@@ -84,14 +87,14 @@ class Certificate {
      * generate() -> This method creates and save the certificate 
      * by calling the saveCertificateToDB method
     */
-    generateUniqueID() {
+    #generateUniqueID() {
         return v4().replaceAll('-', '')
     }
 
     /**
      * saveCertificateDataToDB() -> This method saves our data to the mongodb database
     */
-    async saveCertificateDataToDB(data) {
+    async #saveCertificateDataToDB(data) {
         try {
             let { certificateId } = data.certificateId
 
