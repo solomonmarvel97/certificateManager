@@ -143,6 +143,10 @@ form input[type="text"]::placeholder {
 
 /* select style */
 form select {
+    -webkit-appearance: none;
+    width: 100%;
+    background: url('../assets/icons/dropdown.svg') 95% / 8px no-repeat;
+    border: 0.5px solid rgba(21, 21, 21, 0.44);
 }
 
 /* date style */

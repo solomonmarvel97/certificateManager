@@ -64,7 +64,7 @@
 
       <!-- certicate view -->
       <div class="certificate-view">
-        <p class="mb-2">Ceretificate View</p>
+        <p class="mb-2">Certificate View</p>
         <div class="certificate">
           <iframe :src="pdfsource" frameborder="0" width="300px" height="300px"></iframe>
           <button class="button-black">Download</button>

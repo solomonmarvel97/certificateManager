@@ -9,25 +9,19 @@
                 </nuxt-link>
                 <ul class="menu">
                     <li>
-                        <nuxt-link to="/dashboard/classrooms">Classrooms</nuxt-link>
+                        <nuxt-link to="/create-certificate">Create Certificate</nuxt-link>
                     </li>
                     <li>
-                        <nuxt-link to="/dashboard/learning-resources">Learning Resources</nuxt-link>
+                        <nuxt-link to="/certificate-list">Certificate List</nuxt-link>
                     </li>
                     <li>
-                        <nuxt-link to="/dashboard/clubs">Clubs</nuxt-link>
-                    </li>
-                    <li class="disabled">
-                        <nuxt-link to="#">Courses</nuxt-link>
+                        <nuxt-link to="/verify">Verify Certificate</nuxt-link>
                     </li>
                 </ul>
             </div>
             <!-- right nav items -->
             <div>
                 <ul class="menu">
-                    <div class="flex disabled">
-                        <a>Upgrade</a>
-                    </div>
                     <div class="flex disabled">
                         <a>Help</a>
                     </div>
@@ -66,23 +60,15 @@
                     <h1 class="logo">cert-managr</h1>
                 </a>
                 <button class="close" @click="menu"></button>
-
                 <div class="flex">
-                <a href="/dashboard/classrooms">Classrooms</a>
+                    <a href="/create-certificate">Create Certificate</a>
                 </div>
-
                 <div class="flex">
-                <a href="/dashboard/learning-resources">Learning Resources</a>
+                    <a href="/certificate-list">Certificate List</a>
                 </div>
-
                 <div class="flex">
-                <a href="/dashboard/clubs">Clubs</a>
+                    <a href="/verify-certificate">Verify Certificate</a>
                 </div>
-
-                <div class="flex disabled">
-                <a href="#">Courses</a>
-                </div>
-
                 <div class="flex bottom">
                     <a @click="logout">Logout</a>
                 </div>
@@ -198,9 +184,8 @@ nav {
 }
 
 @media (max-width: 1000px) {
-    .navigation {
+    .navigation {}
 
-    }
     nav {
         width: 90%;
         margin: 0 auto;
@@ -234,14 +219,14 @@ nav {
     }
 
     .close {
-  border: none;
-  width: 20px;
-  height: 20px;
-  background-color: transparent;
-  background-image: url('../assets/icons/close.svg');
-  background-size: cover;
-  cursor: pointer;
-}
+        border: none;
+        width: 20px;
+        height: 20px;
+        background-color: transparent;
+        background-image: url('../assets/icons/close.svg');
+        background-size: cover;
+        cursor: pointer;
+    }
 
     .menu-container {
         width: 250px;

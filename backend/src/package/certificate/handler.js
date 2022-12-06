@@ -1,27 +1,27 @@
 const fs = require('fs');
 const Router = require('express').Router()
-const {Certificate} = require('./model');
+const { Certificate } = require('./model');
 const { createCertificateSchema } = require('./schema');
 
 // generate certificate
-Router.post("/create", async (req,res) => {
+Router.post("/create", async (req, res) => {
     // perform validation using joi
     try {
-    let validator = await schemaValidator(req.body, createCertificateSchema)
-    if (!validator.isValid) {
-        throw validator.error
-    }
+        let validator = await schemaValidator(req.body, createCertificateSchema)
+        if (!validator.isValid) {
+            throw validator.error
+        }
 
-    const {name, track, startDate, endDate, programme, picture} = req.body
-    console.log(req.body)
-    let certificate = new Certificate(name, track, startDate ,endDate, programme, picture)
-    let result = await certificate.generate()
-    
-    result.status = "ok"
-    result.message = "Certificate Generated Successfully"
-    res.json(result)
+        const { name, track, startDate, endDate, programme, picture } = req.body
+        console.log(req.body)
+        let certificate = new Certificate(name, track, startDate, endDate, programme, picture)
+        let result = await certificate.generate()
+
+        result.status = "ok"
+        result.message = "Certificate Generated Successfully"
+        res.json(result)
     }
-    catch(err) {
+    catch (err) {
         console.log(err)
         res.status(422).json({
             error: err.message
@@ -59,11 +59,11 @@ Router.get("/certificate/:certificateId", async (req, res) => {
     // Check if file specified by the filePath exists
     fs.exists(filePath, function (exists) {
         if (exists) {
-            var data =fs.readFileSync(filePath);
+            var data = fs.readFileSync(filePath);
             res.contentType("application/pdf");
             res.send(data);
         }
     });
 })
 
-module.exports = {Router}
+module.exports = { Router }

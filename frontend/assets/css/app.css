@@ -143,6 +143,8 @@ form input[type="text"]::placeholder {
 
 /* select style */
 form select {
+    -webkit-appearance: none;
+    background: url('../icons/dropdown.svg') 95% / 8px no-repeat !important;
 }
 
 /* date style */
@@ -216,44 +218,7 @@ button {
     color: var(--white-color) !important
 }
 
-/* index page */
-main {
-    display: grid;
-    grid-template-columns: 35% 65%;
-    gap: 50px;
-    height: 100vh;
-    align-items: center;
-}
 
-main > div {
-    flex: 1;
-    flex-basis: 300px;
-}
-
-@media (max-width: 1000px) {
-    main {
-        display: flex;
-        flex-wrap: wrap;
-    } 
-}
-
-main .certificate-form {}
-
-main .certificate-view {}
-
-main .certificate-view .certificate {
-    height: 400px;
-    width: 100%;
-    position: relative;
-    background-color: var(--secondary-color);
-    border-radius: var(--border-radius);
-}
-
-main .certificate-view .certificate button {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-}
 
 /* flex-wrap deaults */
 
