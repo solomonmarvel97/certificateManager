@@ -31,7 +31,6 @@
                     <a class="flex-wrap" href="/profile">
                         <img class="avatar"
                             :src="'https://avatars.dicebear.com/api/initials/' + usernameInitial + '.svg'" />
-                        <p>{{ user.username }}</p>
                     </a>
                 </ul>
             </div>
