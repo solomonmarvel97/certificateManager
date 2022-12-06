@@ -71,7 +71,9 @@
 
       <!-- certicate view -->
       <div class="certificate-view">
-        <p class="mb-2">Certificate View</p>
+        <div class="mb-2">
+        <p class="certificate-tag">Certificate View</p>
+      </div>
         <div class="certificate">
           <iframe :src="pdfsource" frameborder="0" width="300px" height="300px"></iframe>
           <button class="button-black">Download</button>
@@ -175,5 +177,14 @@ iframe {
   width: 100%;
   height: 100%;
   border: none;
+}
+
+.certificate-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 50px;
+  background-color: rgb(108, 233, 233);
+  color: black;
+  font-size: 12px;
 }
 </style>
