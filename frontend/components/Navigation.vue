@@ -4,7 +4,7 @@
         <nav class="web">
             <!-- left nav items -->
             <div class="menu-wrapper">
-                <nuxt-link to="/dashboard">
+                <nuxt-link to="/">
                     <h1 class="logo">cert-managr</h1>
                 </nuxt-link>
                 <ul class="menu">
@@ -45,7 +45,7 @@
             <div class="mobile-menu-wrapper">
                 <div class="flex-wrapper">
                     <button class="hamburger" @click="menu"></button>
-                    <a href="/dashboard">
+                    <a href="/">
                         <h1 class="logo">cert-managr</h1>
                     </a>
                 </div>

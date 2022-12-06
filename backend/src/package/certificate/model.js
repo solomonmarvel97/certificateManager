@@ -21,19 +21,19 @@ class Certificate {
      * @param {String} programme
      * @param {String} picture
     */
-        #name
-        #track
-        #startDate
-        #endDate
-        #programme
-        #picture
+    #name
+    #track
+    #startDate
+    #endDate
+    #programme
+    #picture
 
     constructor(name, track, startDate, endDate, programme, picture) {
         this.#name = name
         this.#track = track
         this.#startDate = startDate,
-        this.#endDate = endDate,
-        this.#programme = programme
+            this.#endDate = endDate,
+            this.#programme = programme
         this.#picture = picture
     }
 
@@ -41,13 +41,13 @@ class Certificate {
     async generate() {
         // generate certificate id
         let certificateId = this.#generateUniqueID()
-        
+
         // check if certificate id already exists
         let result = await this.#certificateIdExists(certificateId)
-        if(result) {
+        if (result) {
             throw Error('The certificate ID already exists')
         }
-        
+
         // compose the certificate object
         let certificateObject = {
             certificateId: this.#generateUniqueID(),
@@ -63,7 +63,7 @@ class Certificate {
         this.#saveCertificateDataToDB(certificateObject)
 
         // attach certificate url to certificate object
-        certificateObject.url =`http://localhost:3001/certificate/${certificateObject.certificateId}`
+        certificateObject.url = `http://localhost:3001/certificate/${certificateObject.certificateId}`
 
         // generate certificate pdf and url
         await certificateGenerator(certificateObject.certificateId)
@@ -74,13 +74,23 @@ class Certificate {
     //check to make sure certificate id doesn't exist already
     async #certificateIdExists(certificateId) {
         return await collection.findOne({ "certificateId": certificateId })
-        .then(data => {
-            if (data) {
-                return true
-            } else {
-                return false
-            }
-        })
+            .then(data => {
+                if (data) {
+                    return true
+                } else {
+                    return false
+                }
+            })
+    }
+
+    // get all certificates from database
+    static async getCertificates() {
+        let result = collection.find()
+        return result        
+        // .toArray(function (err, result) {
+        //     if (err) throw err;
+        //     callback(result);
+        // });
     }
 
     /**

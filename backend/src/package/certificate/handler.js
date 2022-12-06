@@ -3,6 +3,21 @@ const Router = require('express').Router()
 const { Certificate } = require('./model');
 const { createCertificateSchema } = require('./schema');
 
+
+Router.get("/certificates", async (req, res) => {
+    try {
+        let result = await Certificate.getCertificates()
+        result.toArray(function(err, items) {
+            res.json(items)
+        });
+    }
+    catch (err) {
+        res.status(500).json({
+            error: err.message
+        })
+    }
+})
+
 // generate certificate
 Router.post("/create", async (req, res) => {
     // perform validation using joi
