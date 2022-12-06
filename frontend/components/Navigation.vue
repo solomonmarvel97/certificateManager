@@ -15,7 +15,7 @@
                         <nuxt-link to="/certificate-list">Certificate List</nuxt-link>
                     </li>
                     <li>
-                        <nuxt-link to="/verify">Verify Certificate</nuxt-link>
+                        <nuxt-link to="/verify-certificate">Verify Certificate</nuxt-link>
                     </li>
                 </ul>
             </div>
