@@ -110,7 +110,7 @@ form {
     gap: 20px;
 }
 
-form > .content-wrapper {
+.content-wrapper {
     display: grid;
     gap: 10px;
 }

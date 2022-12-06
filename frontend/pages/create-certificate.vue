@@ -72,7 +72,7 @@
       <!-- certicate view -->
       <div class="certificate-view">
         <div class="mb-2">
-        <p class="certificate-tag">Certificate View</p>
+        <p class="tag">Certificate View</p>
       </div>
         <div class="certificate">
           <iframe :src="pdfsource" frameborder="0" width="300px" height="300px"></iframe>
@@ -179,12 +179,4 @@ iframe {
   border: none;
 }
 
-.certificate-tag {
-  display: inline-block;
-  padding: 3px 10px;
-  border-radius: 50px;
-  background-color: rgb(108, 233, 233);
-  color: black;
-  font-size: 12px;
-}
 </style>

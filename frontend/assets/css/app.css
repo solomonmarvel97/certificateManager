@@ -115,6 +115,30 @@ h6 {
     margin-bottom: 50px;
 }
 
+.center {   
+    display: grid;
+    width: 100%;
+    place-items: center;
+}
+
+.tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 50px;
+    background-color: rgb(108, 233, 233);
+    color: black;
+    font-size: 12px;
+  }
+
+.left {
+    display: flex;
+    justify-content: right;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
 
 /* forms */
 
@@ -123,12 +147,12 @@ form {
     gap: 20px;
 }
 
-form>.content-wrapper {
+.content-wrapper {
     display: grid;
     gap: 10px;
 }
 
-form label {
+label {
     font-style: normal;
     font-weight: 400;
     line-height: 17px;
@@ -136,7 +160,7 @@ form label {
     font-size: var(--base-font-size);
 }
 
-form .form-control {
+.form-control {
     width: 100%;
     height: var(--height-standard-inputs);
     background: #FFFFFF;
@@ -147,22 +171,22 @@ form .form-control {
 }
 
 /* text input style */
-form input[type="text"] {}
+input[type="text"] {}
 
-form input[type="text"]::placeholder {
+input[type="text"]::placeholder {
     color: var(--placeholder-color);
 }
 
 /* select style */
-form select {
-    -webkit-appearance: none;
+select {
+    -webkit-appearance: none !important;
     background: url('../icons/dropdown.svg') 95% / 8px no-repeat !important;
 }
 
 /* date style */
-form input[type="date"] {}
+input[type="date"] {}
 
-form .file-upload label {
+.file-upload label {
     display: flex;
     padding: 16px 40px;
     justify-content: center;
@@ -174,7 +198,7 @@ form .file-upload label {
     cursor: pointer;
 }
 
-form .file-upload label>div {
+.file-upload label>div {
     display: grid;
     place-items: center;
 }
@@ -189,7 +213,7 @@ form .file-upload label>div {
     width: 32px;
 }
 
-form .file-upload label>div>.description {
+.file-upload label>div>.description {
     font-size: 10px;
     line-height: 10px;
     color: gray;
@@ -197,7 +221,7 @@ form .file-upload label>div>.description {
 
 
 
-form .file-upload input[type="file"] {
+.file-upload input[type="file"] {
     display: none;
 }
 

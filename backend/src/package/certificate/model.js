@@ -83,6 +83,12 @@ class Certificate {
             })
     }
 
+    // search for certificate using id
+    static async searchCertificate(id) {
+        let result = collection.findOne({certificateId: id})
+        return result
+    }
+
     // get all certificates from database
     static async getCertificates() {
         let result = collection.find()

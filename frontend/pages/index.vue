@@ -3,12 +3,7 @@
         <!-- Page Title -->
         <div class="title mt-5">
             <h1>Home Page</h1>
-            <p>{{ status }}</p>
-            <p>{{ arr }}</p>
-            <p>{{ filteredArray }}</p>
-            <p>{{ key }}</p>
-            <input v-model.lazy="key" placeholder="filter key" type="text" @change="filter"/>
-            <button @click="filter">Filter</button>
+            
         </div>
     </section>
 </template>
@@ -38,7 +33,7 @@ export default {
     watch: {
         status(offline) {
             if (this.$nuxt.isOffline) {
-                this.$toast.error("You're offline")
+                this.$toast.error("You're offline").goAway(3000)
             } else {
                 this.$toast.success("You're back online").goAway(1000)
             }

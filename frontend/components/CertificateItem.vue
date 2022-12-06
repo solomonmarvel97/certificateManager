@@ -26,14 +26,22 @@ export default {
 
 <style scoped>
 .certificate-item {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: space-between;
-    place-items: center;
+    display: grid;
+    grid-template-columns: 30% 30% 20% 10% 5% 5%;
+    align-items: center;
     border-radius: 4px;
     border: 1px solid rgba(0, 0, 0, 0.066);
     padding: 10px;
+}
+
+@media (max-width: 1000px) {
+    .certificate-item {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        place-items: center;
+        gap: 10px;
+    }
 }
 
 p {
@@ -45,7 +53,6 @@ p {
 }
 
 .certificate-item .name {
-    width: 220px;
     display: -webkit-box;
 	-webkit-line-clamp: 1;
 	-webkit-box-orient: vertical;
@@ -54,7 +61,6 @@ p {
 }
 
 .certificate-item .track {
-    width: 200px;
     display: -webkit-box;
 	-webkit-line-clamp: 1;
 	-webkit-box-orient: vertical;

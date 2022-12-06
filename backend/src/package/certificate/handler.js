@@ -4,6 +4,27 @@ const { Certificate } = require('./model');
 const { createCertificateSchema } = require('./schema');
 
 
+// search certificate with certificate id
+Router.get("/certificate/search/:id", async (req, res) => {
+    try {
+        let certificateId = req.params['id']
+        
+        // get's a null string if the param wasn't passed
+        if(certificateId == "null") {
+            throw Error('certificate id was not passed')
+        }
+
+        let result = await Certificate.searchCertificate(certificateId)
+        if(result == null) throw Error('certificate does not exist')
+        res.status(200).json(result)
+    }catch (err) {
+        res.status(404).json({
+            error: err.message
+        })
+    }
+})
+
+// Get all certificates
 Router.get("/certificates", async (req, res) => {
     try {
         let result = await Certificate.getCertificates()
