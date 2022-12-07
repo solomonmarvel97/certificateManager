@@ -126,8 +126,9 @@ export default {
       axios.post('http://localhost:3001/create', formData, { headers }).then((response) => {
         this.$toast.success(response?.data.message).goAway(3000)
         this.pdfsource = response?.data.url
-        response.data.files; // binary representation of the file
-        response.status; // HTTP status
+        // response.data.files;
+        this.certificate = {}
+        this.Images = null
       }).catch(error => {
         if (error.response) {
           this.$toast.error(error.response?.data.error).goAway(3000)
