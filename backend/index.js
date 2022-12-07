@@ -4,26 +4,29 @@ require('./src/config')
 require('./src/helper')
 
 const express = require('express')
-const formidable = require('express-formidable')
 const app = express()
 const cors = require('cors')
-app.use( express.static( "public" ) );
-// set the view engine to ejs
 
+// set express static path
+app.use(express.static("public"));
+
+// set the view engine to ejs
 app.set('view engine', 'ejs');
 const port = 3001
 
-app.use(express.json())
-
+// cors options
 var corsOptions = {
     origin: 'http://localhost:3000',
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
-
 app.use(cors(corsOptions))
 
-// app.use(express.urlencoded({ extended: true }))
-// app.use(formidable())
+// for parsing multipart/form-data
+// var multer = require('multer');
+// var upload = multer();
+// app.use(upload.array());
+
+// using formidable for multipart-form upload
 
 app.get('/certificate', async (req, res) => {
     const { db } = require('./src/database')
@@ -33,10 +36,22 @@ app.get('/certificate', async (req, res) => {
 })
 
 // import route
-const {Router} = require('./src/package/certificate/handler')
+const { Router } = require('./src/packages/certificate/handler')
 app.use(Router)
+
+
+
+  app.use((err,req,res,next)=> {
+    err.statusCode= err.statusCode || 500
+    err.status= err.status || 'error'
+    res.status(err.statusCode).json({
+         status:err.status,
+         error: err.message
+    })
+})
+
+
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
-  })
-  
+})

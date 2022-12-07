@@ -5,63 +5,68 @@
             <h1>Certificate List</h1>
         </div>
 
-        <div class="center">
-            <div v-if="!certificates" class="mt-5 loader"></div>
+        <!-- filter component -->
+        <div class="mb-3">
+            <div class="left">
+                <p class="tag mb-2 pointer" @click="advancedFilter = !advancedFilter">Click or Filter</p>
+            </div>
+            <div class="flex-wrap filter-wrapper" v-if="advancedFilter">
+                <div class="content-wrapper">
+                    <label for="search-key">Select Key</label>
+                    <select class="form-control" id="search-key">
+                        <option value="name">Id</option>
+                        <option value="name">Name</option>
+                    </select>
+                </div>
+                <div class="content-wrapper">
+                    <label for="search-input">Search Text</label>
+                    <input id="search-input" class="form-control" type="text" v-model="key"
+                        placeholder="Enter Search Text" @input.prevent="filterCertificate">
+                </div>
+                <div class="content-wrapper">
+                    <label for="search-key">Programme</label>
+                    <select class="form-control" id="search-key">
+                        <option value="cohort1.0">Cohort1.0</option>
+                        <option value="cohort2.0">Cohort2.0</option>
+                    </select>
+                </div>
+                <div class="content-wrapper">
+                    <label for="search-key">Track</label>
+                    <select class="form-control" id="search-key">
+                        <option value="backend">Id</option>
+                        <option value="product designer">Product Designer</option>
+                        <option value="Frontend Engineer">Frontend Engineer</option>
+                        <option value="ui/ux designer">UI/UX Designer</option>
+                    </select>
+                </div>
+            </div>
         </div>
 
         <!-- certificate list -->
-        <div class="certificate-list mt-5" v-if="certificates">
-
-            <!-- filter component -->
-            <div class="mb-3">
-                <div class="left">
-                    <p class="tag mb-2 pointer" @click="advancedFilter = !advancedFilter">Click or Filter</p>
-                </div>
-                <div class="flex-wrap filter-wrapper" v-if="advancedFilter">
-                    <div class="content-wrapper">
-                        <label for="search-key">Select Key</label>
-                        <select class="form-control" id="search-key">
-                            <option value="name">Id</option>
-                            <option value="name">Name</option>
-                        </select>
-                    </div>
-                    <div class="content-wrapper">
-                        <label for="search-input">Search Text</label>
-                        <input id="search-input" class="form-control" type="text" v-model="key"
-                            placeholder="Enter Search Text" @input.prevent="filterCertificate">
-                    </div>
-                    <div class="content-wrapper">
-                        <label for="search-key">Programme</label>
-                        <select class="form-control" id="search-key">
-                            <option value="cohort1.0">Cohort1.0</option>
-                            <option value="cohort2.0">Cohort2.0</option>
-                        </select>
-                    </div>
-                    <div class="content-wrapper">
-                        <label for="search-key">Track</label>
-                        <select class="form-control" id="search-key">
-                            <option value="backend">Id</option>
-                            <option value="product designer">Product Designer</option>
-                            <option value="Frontend Engineer">Frontend Engineer</option>
-                            <option value="ui/ux designer">UI/UX Designer</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
+        <div class="certificate-list mt-5" v-if="(certificates.length != 0)">
 
             <!-- Certificate Component -->
             <!-- certificate item heading -->
-
             <div class="table-heading-wrapper">
                 <p>ID</p>
-                <p>Name</p>
-                <p>Track</p>
-                <p>Programme</p>
+                <p>NAME</p>
+                <p>TRACK</p>
+                <p>PROGRAMME</p>
             </div>
+
 
             <CertificateItem v-for="(i, index) in certificates" :key="index" :id="i.certificateId" :name="i.name"
                 :track="i.track" :programme="i.programme" :image="i.picture" :downloadLink="i.url" />
         </div>
+
+        <!-- loading spinner -->
+        <div v-if="(certificates.length == 0)" class="mt-5 center">
+            <div v-if="(certificates.length === 0)" class="mt-3 mb-3 loader"></div>
+            <img class="icon-big mb-2" src="@/assets/images/empty.png" />
+            <p>You do not have any certificate</p>
+        </div>
+
+
     </section>
 </template>
 
@@ -71,7 +76,7 @@ export default {
     data() {
         return {
             advancedFilter: false,
-            certificates: null,
+            certificates: "",
             originalData: null,
             key: null
         }
@@ -92,12 +97,11 @@ export default {
 
             axios(config)
                 .then(function (response) {
-                    console.log(JSON.stringify(response.data))
                     self.certificates = response.data;
                     self.originalData = response.data;
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    this.$toast.error(error.response?.data.error).goAway(3000)
                 });
 
         },
@@ -125,9 +129,10 @@ export default {
     grid-template-columns: 30% 30% 20% 10% 5% 5%;
     align-items: center;
     border-radius: 4px;
-    margin-bottom: 1em;
-}   
-.table-heading-wrapper > p {
+    padding: 15px;
+}
+
+.table-heading-wrapper>p {
     font-weight: 600;
 }
 
@@ -148,5 +153,4 @@ export default {
         display: none;
     }
 }
-
 </style>

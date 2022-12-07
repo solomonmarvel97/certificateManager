@@ -13,13 +13,13 @@
           <!-- full name -->
           <div class="content-wrapper">
             <label for="name">Full Name</label>
-            <input class="form-control" id="name" type="text" placeholder="E.g John Doe" v-model="certificate.name">
+            <input class="form-control" id="name" type="text" placeholder="E.g John Doe" v-model="certificate.name" required>
           </div>
 
           <!-- track -->
           <div class="content-wrapper">
             <label for="track">Track</label>
-            <select class="form-control" id="track" v-model="certificate.track">
+            <select class="form-control" id="track" v-model="certificate.track" required>
               <option value="default">Select Track...</option>
               <option value="Frontend Engineer">Frontend Engineer</option>
               <option value="Backend Engineer">Backend Engineer</option>
@@ -31,7 +31,7 @@
           <!-- programme -->
           <div class="content-wrapper">
             <label for="programme">Programme</label>
-            <select class="form-control" id="programme" v-model="certificate.programme">
+            <select class="form-control" id="programme" v-model="certificate.programme" required>
               <option value="default">Select Programme...</option>
               <option value="Cohort 1.0">Cohort 1.0</option>
               <option value="Cohort 2.0">Cohort 2.0</option>
@@ -41,27 +41,33 @@
           <!-- start date -->
           <div class="content-wrapper">
             <label for="start_date">Start Date</label>
-            <input class="form-control" id="start_date" type="date" v-model="certificate.startDate">
+            <input class="form-control" id="start_date" type="date" v-model="certificate.startDate" required>
           </div>
 
           <!-- end date -->
           <div class="content-wrapper">
             <label for="end_date">End Date</label>
-            <input class="form-control" id="end_date" type="date" v-model="certificate.endDate">
+            <input class="form-control" id="end_date" type="date" v-model="certificate.endDate" required>
           </div>
 
           <!-- file upload -->
           <div class="content-wrapper file-upload">
             <label for="file_upload">
-              <div>
+              <div v-if="!Images">
                 <img class="icon-big mb-1" src="@/assets/icons/upload-icon.svg" alt="upload icon" />
                 <p class="mb-1">Upload Picture</p>
                 <p class="description mb-1">Or you can simply drag and drop</p>
               </div>
-            </label>
-            <input class="form-control" id="file_upload" type="file">
-          </div>
 
+              <div v-if="Images">
+                <img class="icon-big mb-1" src="@/assets/icons/upload-icon.svg" alt="upload icon" />
+                <p class="mb-1">{{ Images?.name }}</p>
+                <p class="description mb-1">Ready for Upload</p>
+              </div>
+
+            </label>
+            <input class="form-control" id="file_upload" type="file" @change="uploadFile" ref="file">
+          </div>
           <div>
             <Button class="button-primary" :loading="loading" text="Generate Certifiate" />
           </div>
@@ -72,11 +78,10 @@
       <!-- certicate view -->
       <div class="certificate-view">
         <div class="mb-2">
-        <p class="tag">Certificate View</p>
-      </div>
+          <p class="tag">Certificate View</p>
+        </div>
         <div class="certificate">
           <iframe :src="pdfsource" frameborder="0" width="300px" height="300px"></iframe>
-          <button class="button-black">Download</button>
         </div>
       </div>
     </main>
@@ -90,6 +95,7 @@ export default {
   layout: "web",
   data() {
     return {
+      Images: null,
       certificate: {
         name: "",
         track: "default",
@@ -105,24 +111,26 @@ export default {
   components: {
   },
   methods: {
+    uploadFile() {
+      this.Images = ''
+      this.Images = this.$refs.file.files[0];
+    },
     async createCertificate() {
-      this.loading = true
-      var config = {
-        method: 'post',
-        url: 'http://localhost:3001/create',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        data: JSON.stringify(this.certificate)
-      };
-      await Request.init(config).then(response => {
+      let self = this
+      self.loading = true
+      const axios = require('axios')
+      const formData = new FormData()
+      formData.append('image', this.Images);
+      formData.append('form', JSON.stringify(this.certificate))
+      const headers = { 'Content-Type': 'multipart/form-data' }
+      axios.post('http://localhost:3001/create', formData, { headers }).then((response) => {
         this.$toast.success(response?.data.message).goAway(3000)
         this.pdfsource = response?.data.url
+        response.data.files; // binary representation of the file
+        response.status; // HTTP status
       }).catch(error => {
         if (error.response) {
           this.$toast.error(error.response?.data.error).goAway(3000)
-        } else {
-          this.$toast.error(error).goAway(3000)
         }
       }).finally(() => {
         this.loading = false
@@ -178,5 +186,4 @@ iframe {
   height: 100%;
   border: none;
 }
-
 </style>

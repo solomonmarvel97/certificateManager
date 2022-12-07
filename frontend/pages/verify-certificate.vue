@@ -58,15 +58,13 @@ export default {
             let self = this
             axios(config)
                 .then(function (response) {
-                    console.log(JSON.stringify(response.data));
                     self.certificate = response.data.url
                 })
                 .catch(function (error) {
-                    console.log(error);
                     self.$toast.error(error.response.data.error).goAway(5000)
                 }).finally(() => {
                     this.loading = false,
-                        this.disabled = false
+                    this.disabled = false
                 })
 
         }

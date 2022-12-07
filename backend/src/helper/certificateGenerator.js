@@ -18,11 +18,10 @@ exports.certificateGenerator = async (certificateId) => {
 
   //To reflect CSS used for screens instead of print
   await page.emulateMediaType('screen');
-
-  console.log(AppConfig.BaseDirectory)
-// Downlaod the PDF
+  
+  // Downlaod the PDF
   const pdf = await page.pdf({
-    path: `${AppConfig.BaseDirectory}/uploads/certificates/pdf/${certificateId}.pdf`,
+    path: `${AppConfig.BaseDirectory}/uploads/certificates/${certificateId}.pdf`,
     margin: { top: '50px', right: '20px', bottom: '50px', left: '20px' },
     printBackground: true,
     format: 'A4',

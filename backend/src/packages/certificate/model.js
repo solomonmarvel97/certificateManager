@@ -63,7 +63,7 @@ class Certificate {
         this.#saveCertificateDataToDB(certificateObject)
 
         // attach certificate url to certificate object
-        certificateObject.url = `http://localhost:3001/certificate/${certificateObject.certificateId}`
+        certificateObject.url = `http://localhost:3001/uploads/certificates/${certificateObject.certificateId}.pdf`
 
         // generate certificate pdf and url
         await certificateGenerator(certificateObject.certificateId)
@@ -93,10 +93,6 @@ class Certificate {
     static async getCertificates() {
         let result = collection.find()
         return result        
-        // .toArray(function (err, result) {
-        //     if (err) throw err;
-        //     callback(result);
-        // });
     }
 
     /**
@@ -113,10 +109,8 @@ class Certificate {
     async #saveCertificateDataToDB(data) {
         try {
             let { certificateId } = data.certificateId
-
             // save our record to mongodb
             const insertResult = await collection.insertOne(data);
-            console.log('Inserted documents =>', insertResult);
         }
         catch (err) { throw new Error(err) }
     }
