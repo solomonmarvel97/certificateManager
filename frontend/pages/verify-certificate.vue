@@ -9,12 +9,15 @@
         <div class="mt-5">
             <div class="mb-3">
                 <div class="">
-                    <form class="content-wrapper" @submit.prevent="searchCertificate">
-                        <label class="" for="search-input">Search Text</label>
-                        <input id="search-input" class="form-control" type="text" v-model="certificateId"
-                            placeholder="Enter Search Text" :disabled="disabled" required>
-                        <Button :loading="loading" class="button-black" text="Search"></Button>
-                    </form>
+                    <div class="search-wrapper">
+                        <form @submit.prevent="searchCertificate">
+                            <div class="center">
+                            <input id="search-input" class="form-control" type="text" v-model="certificateId"
+                                placeholder="Enter Certificate ID" :disabled="disabled" required>
+                            <Button :loading="loading" class="button-black" text="Search"></Button>
+                        </div>
+                        </form>
+                    </div>
 
                     <!-- loading spinner -->
                     <div class="center">
@@ -92,8 +95,8 @@ export default {
 
 .flex-wrap {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 30px;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
 
 .filter-wrapper {
@@ -112,4 +115,32 @@ iframe {
     width: 100%;
     height: 500px;
 }
+
+.search-wrapper {
+    padding: 50px;
+    border: 1px dashed rgba(0, 0, 0, 0.127);
+    border-radius: var(--border-radius);
+}
+
+.search-wrapper button {
+    height: 37px
+}
+
+.center {
+    all: unset;
+    width: 50%;
+    margin: 0 auto;
+    display: flex;
+    gap: 20px;
+}
+
+@media (max-width: 1000px) {
+    .search-wrapper {
+        padding: 20px;
+    }
+    .center {
+        width: 100%;
+    }
+}
+
 </style>
