@@ -49,8 +49,8 @@ Router.post("/create", upload, async (req, res) => {
             throw validator.error
         }
         const picture = (req.files[0]?.path !== undefined) ? `http://localhost:3001/${req.files[0]?.path}` : null
-        const {name, track, programme, startDate, endDate,} = requestBody
-        let certificate = new Certificate(name, track, startDate, endDate, programme, picture)
+        const {name, email, track, programme, startDate, endDate,} = requestBody
+        let certificate = new Certificate(name, email, track, startDate, endDate, programme, picture)
         
         let result = await certificate.generate()
         result.status = "ok"

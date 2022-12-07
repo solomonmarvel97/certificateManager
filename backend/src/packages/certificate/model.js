@@ -22,14 +22,16 @@ class Certificate {
      * @param {String} picture
     */
     #name
+    #email
     #track
     #startDate
     #endDate
     #programme
     #picture
 
-    constructor(name, track, startDate, endDate, programme, picture) {
+    constructor(name, email, track, startDate, endDate, programme, picture) {
         this.#name = name
+        this.#email = email
         this.#track = track
         this.#startDate = startDate,
             this.#endDate = endDate,
@@ -52,6 +54,7 @@ class Certificate {
         let certificateObject = {
             certificateId: this.#generateUniqueID(),
             name: this.#name,
+            email: this.#email,
             track: this.#track,
             startDate: this.#startDate,
             endDate: this.#endDate,

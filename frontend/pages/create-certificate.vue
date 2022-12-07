@@ -16,6 +16,12 @@
             <input class="form-control" id="name" type="text" placeholder="E.g John Doe" v-model="certificate.name" required>
           </div>
 
+          <!-- email -->
+          <div class="content-wrapper">
+            <label for="email">Email Address</label>
+            <input class="form-control" id="email" type="email" placeholder="E.g johndoe@email.com" v-model="certificate.email" required>
+          </div>
+
           <!-- track -->
           <div class="content-wrapper">
             <label for="track">Track</label>
@@ -98,6 +104,7 @@ export default {
       Images: null,
       certificate: {
         name: "",
+        email: "",
         track: "default",
         programme: "default",
         startDate: "",
