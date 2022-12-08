@@ -95,7 +95,7 @@
 </template>
 
 <script>
-import Request from '../config/Request'
+import Request from '@/config/Request'
 
 export default {
   layout: "web",

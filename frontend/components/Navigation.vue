@@ -9,13 +9,13 @@
                 </nuxt-link>
                 <ul class="menu">
                     <li>
-                        <nuxt-link to="/create-certificate">Create Certificate</nuxt-link>
+                        <nuxt-link to="/certificate/create-certificate">Create Certificate</nuxt-link>
                     </li>
                     <li>
-                        <nuxt-link to="/certificate-list">Certificate List</nuxt-link>
+                        <nuxt-link to="/certificate/certificate-list">Certificate List</nuxt-link>
                     </li>
                     <li>
-                        <nuxt-link to="/verify-certificate">Verify Certificate</nuxt-link>
+                        <nuxt-link to="/certificate/verify-certificate">Verify Certificate</nuxt-link>
                     </li>
                 </ul>
             </div>
@@ -28,7 +28,7 @@
                     <div class="flex">
                         <a @click="logout">Logout</a>
                     </div>
-                    <a class="flex-wrap" href="/profile">
+                    <a class="flex-wrap" href="#">
                         <img class="avatar"
                             :src="'https://avatars.dicebear.com/api/initials/' + usernameInitial + '.svg'" />
                     </a>
@@ -60,20 +60,19 @@
                 </a>
                 <button class="close" @click="menu"></button>
                 <div class="flex">
-                    <a href="/create-certificate">Create Certificate</a>
+                    <a href="/certificate/create-certificate">Create Certificate</a>
                 </div>
                 <div class="flex">
-                    <a href="/certificate-list">Certificate List</a>
+                    <a href="/certificate/certificate-list">Certificate List</a>
                 </div>
                 <div class="flex">
-                    <a href="/verify-certificate">Verify Certificate</a>
+                    <a href="/certificate/verify-certificate">Verify Certificate</a>
                 </div>
                 <div class="flex bottom">
                     <a @click="logout">Logout</a>
                 </div>
             </div>
         </nav>
-
 
     </div>
 </template>
