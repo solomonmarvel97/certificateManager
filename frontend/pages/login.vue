@@ -83,7 +83,7 @@
 export default {
     data() {
         return {
-            passwordBackground: require('@/assets/icons/close.svg'),
+            passwordBackground: require('@/assets/icons/eye.svg'),
             passwordInputType: "password",
             user: {
                 email: "",
@@ -99,10 +99,10 @@ export default {
         showOrHidePassword() {
             let state = this.passwordInputType
             if (state === "text") {
-                this.passwordBackground = require('@/assets/icons/close.svg'),
+                this.passwordBackground = require('@/assets/icons/eye.svg'),
                     this.passwordInputType = "password"
             } else {
-                this.passwordBackground = require('@/assets/icons/download.svg'),
+                this.passwordBackground = require('@/assets/icons/eye-close.svg'),
                     this.passwordInputType = "text"
             }
         }
