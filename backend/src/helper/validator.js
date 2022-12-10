@@ -5,9 +5,8 @@ const Joi = require('joi')
  * coming from the frontend client
  * @param {Object} data -> This is the req object
  * @param {Object} schema -> This is the joi validaton schema
- * @returns 
- */
-exports.schemaValidator = async (data, schema) => {
+ * @returns Joi Validator Object 
+ */ exports.schemaValidator = async (data, schema) => {
     try {
         let value = await schema.validateAsync(data)
         return {

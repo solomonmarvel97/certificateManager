@@ -23,6 +23,7 @@
     "multer": "^1.4.5-lts.1",
     "puppeteer": "^19.4.0",
     "randomstring": "^1.2.3",
+    "readme-md-generator": "^1.0.0",
     "redis-om": "^0.3.6",
     "swagger-ui-express": "^4.6.0",
     "uuid": "^9.0.0",

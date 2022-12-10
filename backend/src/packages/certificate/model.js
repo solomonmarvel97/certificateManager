@@ -16,7 +16,6 @@ class Certificate {
     #programme
     #picture
     /**
-    *
     * @param {String} name
     * @param {String} email 
     * @param {String} track
@@ -37,7 +36,7 @@ class Certificate {
 
     /**
      * This method creates and save the certificate 
-     * @returns {Object}
+     * @returns {Object} Returns a javascript Object
      */
     async generate() {
         // generate certificate id
@@ -84,7 +83,7 @@ class Certificate {
      * searchCertifiate(id)
      * * search for certificate using id
      * @param {String} id 
-     * @returns {Object}
+     * @returns {Object} Returns a javascript Object
      */
     static async searchCertificate(id) {
         return await Repository.searchCertificate(id)
@@ -93,7 +92,7 @@ class Certificate {
     /**
      * getCertificates()
      * get all certificates from database
-     * @returns {Object}
+     * @returns {Object} Returns a javascript Object
      */
     static async getCertificates() {
         return await Repository.getCertificates()
@@ -107,7 +106,7 @@ class Certificate {
      * saveCertificateDataToDB()
      * This method saves our data to the mongodb database
      * @param {Object} data 
-     * @returns {Object}
+     * @returns {Object} Returns a javascript Object
      */
     async #saveCertificateDataToDB(data) {
         return await Repository.saveCertificateDataToDB(data)
