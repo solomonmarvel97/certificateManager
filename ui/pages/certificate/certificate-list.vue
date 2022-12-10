@@ -101,7 +101,7 @@ export default {
                     self.originalData = response.data;
                 })
                 .catch(function (error) {
-                    this.$toast.error(error.response?.data.error).goAway(3000)
+                    self.$toast.error(error.response?.data.error).goAway(3000)
                 });
 
         },

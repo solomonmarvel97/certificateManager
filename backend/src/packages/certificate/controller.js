@@ -5,17 +5,20 @@ const { Certificate } = require('./model');
 const { createCertificateSchema } = require('./schema');
 
 
+Router.get('/certificate', async (req, res) => {
+    let queryResut = await Certificate.getCertificate(req.query['certificateId'])
+    res.render('pages/index', JSON.parse(queryResut));
+})
+
 // search certificate with certificate id
 Router.get("/certificate/search/:id", async (req, res) => {
     try {
         let certificateId = req.params['id']
         // get's a null string if the param wasn't passed
-        if (certificateId == "null") {
+        if (certificateId === "null") {
             throw Error('certificate id was not passed')
         }
-
         let result = await Certificate.searchCertificate(certificateId)
-        if (result == null) throw Error('certificate does not exist')
         res.status(200).json(result)
     } catch (err) {
         res.status(404).json({
@@ -28,9 +31,7 @@ Router.get("/certificate/search/:id", async (req, res) => {
 Router.get("/certificates", async (req, res) => {
     try {
         let result = await Certificate.getCertificates()
-        result.toArray(function (err, items) {
-            res.json(items)
-        });
+        res.json(result)
     }
     catch (err) {
         res.status(500).json({
@@ -40,22 +41,22 @@ Router.get("/certificates", async (req, res) => {
 })
 
 // generate certificate
-Router.post("/create", upload, async (req, res) => {
-    // perform validation using joi
+Router.post("/certificate", upload, async (req, res) => {
     try {
-        let requestBody= JSON.parse(req.body.form)
-        let validator = await schemaValidator(requestBody, createCertificateSchema)
-        if (!validator.isValid) {
-            throw validator.error
-        }
-        const picture = (req.files[0]?.path !== undefined) ? `http://localhost:3001/${req.files[0]?.path}` : null
-        const {name, email, track, programme, startDate, endDate,} = requestBody
+        // parse multipart-form data
+        let requestBody = JSON.parse(req.body.form)
+        // perform validation using joi
+        await schemaValidator(requestBody, createCertificateSchema)
+        // componse file path
+        const picture = (req.files[0]?.path !== undefined) ? `${AppConfig.HOST}/${req.files[0]?.path}` : null
+        const { name, email, track, programme, startDate, endDate } = requestBody
         let certificate = new Certificate(name, email, track, startDate, endDate, programme, picture)
-        
-        let result = await certificate.generate()
-        result.status = "ok"
-        result.message = "Certificate Generated Successfully"
-        res.status(200).json(result)
+        let data = await certificate.generate()
+        res.status(200).json({
+            status: "ok",
+            message: "Certificate Generated Successfully",
+            ...data
+        })
     }
     catch (err) {
         res.status(422).json({
@@ -89,15 +90,14 @@ Router.get("/certificate/download/:certificateId", async (req, res) => {
 Router.get("/uploads/:type/:file", async (req, res) => {
     // or any file format
     let filePath = ""
-    
-        filePath = `${AppConfig.BaseDirectory}/uploads/${req.params.type}/${req.params.file}`;
-        fs.exists(filePath, function (exists) {
-            if (exists) {
-                var data = fs.readFileSync(filePath);
-                (req.params.type == "certificates") ? res.contentType("application/pdf") : res.contentType("image/png");
-                res.send(data);
-            }
-        });
+    filePath = `${AppConfig.BaseDirectory}/uploads/${req.params.type}/${req.params.file}`;
+    fs.exists(filePath, function (exists) {
+        if (exists) {
+            var data = fs.readFileSync(filePath);
+            (req.params.type == "certificates") ? res.contentType("application/pdf") : res.contentType("image/png");
+            res.send(data);
+        }
+    });
 })
 
 module.exports = { Router }

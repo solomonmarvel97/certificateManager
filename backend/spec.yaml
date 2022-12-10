@@ -1,0 +1,17 @@
+openapi: 3.0.0
+x-stoplight:
+  id: zv5ob3c89twz5
+info:
+  title: universe
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  '/certificates':
+    get:
+      summary: Get Certificates
+      tags: []
+      responses:
+        '200':
+          description: User Found
+       

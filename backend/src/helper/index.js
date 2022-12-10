@@ -1,5 +1,6 @@
-const { certificateGenerator } = require("./certificateGenerator");
 const { schemaValidator } = require("./validator");
-
-global.certificateGenerator = certificateGenerator
 global.schemaValidator = schemaValidator
+
+global.generateUniqueID = () => {
+    return require('uuid').v4().replaceAll('-', '')
+}

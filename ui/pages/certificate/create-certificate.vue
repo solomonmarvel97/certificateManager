@@ -130,15 +130,15 @@ export default {
       formData.append('image', this.Images);
       formData.append('form', JSON.stringify(this.certificate))
       const headers = { 'Content-Type': 'multipart/form-data' }
-      axios.post('http://localhost:3001/create', formData, { headers }).then((response) => {
-        this.$toast.success(response?.data.message).goAway(3000)
-        this.pdfsource = response?.data.url
+      axios.post('http://localhost:3001/certificate', formData, { headers }).then((response) => {
+        self.$toast.success(response?.data.message).goAway(3000)
+        self.pdfsource = response.data.url
         // response.data.files;
-        this.certificate = {}
-        this.Images = null
+        self.certificate = {}
+        self.Images = null
       }).catch(error => {
         if (error.response) {
-          this.$toast.error(error.response?.data.error).goAway(3000)
+          self.$toast.error(error.response?.data.error).goAway(3000)
         }
       }).finally(() => {
         this.loading = false

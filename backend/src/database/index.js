@@ -1,17 +1,14 @@
-const { MongoClient } = require('mongodb');
-// or as an es module:
+const { Client } = require("redis-om");
+let REDIS_URL = process.env.REDIS_URL;
 
-// Connection URL
-const url = 'mongodb://localhost:27017';
-const client = new MongoClient(url);
+/* create and open the Redis OM Client */
+const client = new Client();
 
-// Database Name
-const dbName = 'certificateManagerDB';
+// open client
+client.open(REDIS_URL).then(() => {
+    console.log('Connected successfully to redis database');
+}).catch(err => {
+    console.log(err)
+})
 
-  client.connect();
-  console.log('Connected successfully to server');
-  const db = client.db(dbName)
-
-module.exports = {
-    db
-}
+module.exports.db = client

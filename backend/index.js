@@ -1,8 +1,7 @@
 require('dotenv').config()
-require('./src/database')
 require('./src/config')
+require('./src/database')
 require('./src/helper')
-
 const express = require('express')
 const app = express()
 const cors = require('cors')
@@ -12,7 +11,11 @@ app.use(express.static("public"));
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
-const port = 3001
+
+const swaggerUi = require("swagger-ui-express");
+const YAML = require("yamljs");
+
+const PORT = AppConfig.PORT
 
 // cors options
 var corsOptions = {
@@ -21,37 +24,41 @@ var corsOptions = {
 }
 app.use(cors(corsOptions))
 
-// for parsing multipart/form-data
-// var multer = require('multer');
-// var upload = multer();
-// app.use(upload.array());
-
-// using formidable for multipart-form upload
-
-app.get('/certificate', async (req, res) => {
-    const { db } = require('./src/database')
-    const collection = db.collection('certificates');
-    let queryResut = await collection.findOne({ "certificateId": req.query['certificateId'] })
-    res.render('pages/index', queryResut);
-})
-
 // import route
-const { Router } = require('./src/packages/certificate/handler')
+const { Router } = require('./src/packages/certificate/controller')
 app.use(Router)
 
+// Helmet helps you secure your Express apps by setting various HTTP headers
+const helmet = require("helmet");
+app.use(helmet());
+
+// local logging
+// HTTP logging middleware
+let fs = require('fs')
+let path = require('path')
+let morgan = require('morgan')
+
+// create a write stream (in append mode)
+var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+
+// setup the logger
+app.use(morgan('combined', { stream: accessLogStream }))
+
+/* set up swagger in the root */
+const swaggerDocument = YAML.load("./spec.yaml");
+app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
-  app.use((err,req,res,next)=> {
-    err.statusCode= err.statusCode || 500
-    err.status= err.status || 'error'
+// default error middleware -> You should remove this when debugging
+app.use((err, req, res, next) => {
+    err.statusCode = err.statusCode || 500
+    err.status = err.status || 'error'
     res.status(err.statusCode).json({
-         status:err.status,
-         error: err.message
+        status: err.status,
+        error: err.message
     })
 })
 
-
-
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+app.listen(PORT, () => {
+    console.log(`App Launched 🚀 & listening on port ${PORT}`)
 })

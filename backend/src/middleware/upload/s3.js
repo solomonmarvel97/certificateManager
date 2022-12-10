@@ -3,6 +3,7 @@ const config = require(path.resolve("utils", "config.js"));
 const multer = require('multer')
 const AWS = require('aws-sdk')
 
+// s3 upload not configured
 exports.s3Config = new AWS.S3({
     accessKeyId: "",
     secretAccessKey: "",
