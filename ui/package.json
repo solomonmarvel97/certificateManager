@@ -13,7 +13,7 @@
     "@nuxtjs/toast": "^3.3.1",
     "@pdftron/webviewer": "^8.10.0",
     "core-js": "^3.25.3",
-    "nuxt": "^2.15.8",
+    "nuxt": "^3.0.0",
     "pdfobject": "^2.2.8",
     "pdfvuer": "^2.0.1",
     "vue": "^2.7.10",
