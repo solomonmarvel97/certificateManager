@@ -16,6 +16,7 @@ exports.schemaValidator = async (data, schema) => {
         }
     }
     catch (error) {
+            Honeybadger.notify(error);
             throw error
     }
 }

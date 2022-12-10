@@ -5,6 +5,11 @@ require('./src/helper')
 const express = require('express')
 const app = express()
 const cors = require('cors')
+const Honeybadger = require('@honeybadger-io/js')
+ 
+Honeybadger.configure({
+  apiKey: AppConfig.HONEY_BADGER_KEY
+});
 
 // set express static path
 app.use(express.static("public"));
@@ -51,6 +56,7 @@ app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // default error middleware -> You should remove this when debugging
 app.use((err, req, res, next) => {
+    Honeybadger.notify(err) // Logging other errors using HoneyBadger;
     err.statusCode = err.statusCode || 500
     err.status = err.status || 'error'
     res.status(err.statusCode).json({

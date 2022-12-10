@@ -21,6 +21,7 @@ Router.get("/certificate/search/:id", async (req, res) => {
         let result = await Certificate.searchCertificate(certificateId)
         res.status(200).json(result)
     } catch (err) {
+        Honeybadger.notify(err);
         res.status(404).json({
             error: err.message
         })
@@ -34,6 +35,7 @@ Router.get("/certificates", async (req, res) => {
         res.json(result)
     }
     catch (err) {
+        Honeybadger.notify(err);
         res.status(500).json({
             error: err.message
         })
@@ -59,6 +61,7 @@ Router.post("/certificate", upload, async (req, res) => {
         })
     }
     catch (err) {
+        Honeybadger.notify(err);
         res.status(422).json({
             error: err.message
         })

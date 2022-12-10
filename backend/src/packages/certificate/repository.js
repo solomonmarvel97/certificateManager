@@ -26,7 +26,10 @@ exports.saveCertificateDataToDB = async (data) => {
         let certificate = await certificateRepository.createAndSave(data)
         return certificate[0]
     }
-    catch (err) { throw new Error("An error occured while saving the record, please try again later") }
+    catch (err) {
+        Honeybadger.notify(err); 
+        throw new Error("An error occured while saving the record, please try again later") 
+    }
 }
 
 exports.getCertificate = async (certificateId) => {
