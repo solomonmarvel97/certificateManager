@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: helper/validator.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,39 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: helper/validator.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const Joi = require('joi')
 
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+/**
+ * schema Validator is used to validate the request object shape
+ * coming from the frontend client
+ * @param {Object} data -> This is the req object
+ * @param {Object} schema -> This is the joi validaton schema
+ * @returns Joi Validator Object 
+ */ exports.schemaValidator = async (data, schema) => {
+    try {
+        let value = await schema.validateAsync(data)
+        return {
+            isValid: true,
+            value
+        }
+    }
+    catch (error) {
+            Honeybadger.notify(error);
+            throw error
+    }
+}
+</code></pre>
+        </article>
+    </section>
 
 
 
