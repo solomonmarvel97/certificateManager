@@ -6,8 +6,8 @@
                 <p>{{programme}}</p>
                 <img :src="(image || `https://avatars.dicebear.com/api/initials/${name}.svg`)"/>
                 <a target="_blank" :href="downloadLink">
-                <img class="download-icon" src="@/assets/icons/download.svg"/>
-            </a>
+                    <img class="download-icon" src="@/assets/icons/download.svg"/>
+                </a>
             </div>
 </template>
 

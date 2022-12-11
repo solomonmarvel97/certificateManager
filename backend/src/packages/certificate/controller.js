@@ -4,45 +4,7 @@ const Router = require('express').Router()
 const { Certificate } = require('./model');
 const { createCertificateSchema } = require('./schema');
 
-
-Router.get('/certificate', async (req, res) => {
-    let queryResut = await Certificate.getCertificate(req.query['certificateId'])
-    res.render('pages/index', JSON.parse(queryResut));
-})
-
-// search certificate with certificate id
-Router.get("/certificate/search/:id", async (req, res) => {
-    try {
-        let certificateId = req.params['id']
-        // get's a null string if the param wasn't passed
-        if (certificateId === "null") {
-            throw Error('certificate id was not passed')
-        }
-        let result = await Certificate.searchCertificate(certificateId)
-        res.status(200).json(result)
-    } catch (err) {
-        Honeybadger.notify(err);
-        res.status(404).json({
-            error: err.message
-        })
-    }
-})
-
-// Get all certificates
-Router.get("/certificates", async (req, res) => {
-    try {
-        let result = await Certificate.getCertificates()
-        res.json(result)
-    }
-    catch (err) {
-        Honeybadger.notify(err);
-        res.status(500).json({
-            error: err.message
-        })
-    }
-})
-
-// generate certificate
+// Create New Certificate
 Router.post("/certificate", upload, async (req, res) => {
     try {
         // parse multipart-form data
@@ -50,7 +12,7 @@ Router.post("/certificate", upload, async (req, res) => {
         // perform validation using joi
         await schemaValidator(requestBody, createCertificateSchema)
         // componse file path
-        const picture = (req.files[0]?.path !== undefined) ? `${AppConfig.HOST}/${req.files[0]?.path}` : null
+        const picture = (req.files[0]?.path !== undefined) ? `${AppConfig.HOST}/${req.files[0]?.path.replace("uploads", "assets")}` : null
         const { name, email, track, programme, startDate, endDate } = requestBody
         let certificate = new Certificate(name, email, track, startDate, endDate, programme, picture)
         let data = await certificate.generate()
@@ -61,14 +23,38 @@ Router.post("/certificate", upload, async (req, res) => {
         })
     }
     catch (err) {
-        Honeybadger.notify(err);
+        Logger.notify(err);
         res.status(422).json({
             error: err.message
         })
     }
 })
 
-// Download certificate
+// Used Internally For Generating Certificate PDF
+Router.get('/certificate/generate', async (req, res) => {
+    let queryResut = await Certificate.searchCertificate(req.query['certificateId'])
+    res.render('pages/index', queryResut);
+})
+
+// Search Certificate with CertificateId
+Router.get("/certificate/search/:id", async (req, res) => {
+    try {
+        let certificateId = req.params['id']
+        // get's a null string if the param wasn't passed
+        if (certificateId === "null") {
+            throw Error('certificate id was not passed')
+        }
+        let result = await Certificate.searchCertificate(certificateId)
+        res.status(200).json(result)
+    } catch (err) {
+        Logger.notify(err);
+        res.status(404).json({
+            error: err.message
+        })
+    }
+})
+
+// Download Certificate
 Router.get("/certificate/download/:certificateId", async (req, res) => {
     // or any file format
     const filePath = `${AppConfig.BaseDirectory}/uploads/certificates/${req.params.certificateId}`;
@@ -89,14 +75,27 @@ Router.get("/certificate/download/:certificateId", async (req, res) => {
     });
 })
 
-// Render certificate
-Router.get("/uploads/:type/:file", async (req, res) => {
+// Get All Certificates
+Router.get("/certificates", async (req, res) => {
+    try {
+        let result = await Certificate.getAllCertificates()
+        res.json(result)
+    }
+    catch (err) {
+        Logger.notify(err);
+        res.status(500).json({
+            error: err.message
+        })
+    }
+})
+
+// Render Assets
+Router.get("/assets/:type/:file", async (req, res) => {
     // or any file format
-    let filePath = ""
-    filePath = `${AppConfig.BaseDirectory}/uploads/${req.params.type}/${req.params.file}`;
+    let filePath = `${AppConfig.BaseDirectory}/uploads/${req.params.type}/${req.params.file}`;
     fs.exists(filePath, function (exists) {
         if (exists) {
-            var data = fs.readFileSync(filePath);
+            let data = fs.readFileSync(filePath);
             (req.params.type == "certificates") ? res.contentType("application/pdf") : res.contentType("image/png");
             res.send(data);
         }

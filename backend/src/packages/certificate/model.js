@@ -48,7 +48,7 @@ class Certificate {
         }
         // compose the certificate object
         let certificateObject = {
-            certificateId: generateUniqueID(),
+            certificateId,
             name: this.#name,
             email: this.#email,
             track: this.#track,
@@ -58,13 +58,13 @@ class Certificate {
             picture: this.#picture,
         }
         // attach certificate url to certificate object
-        certificateObject.url = `${AppConfig.HOST}/uploads/certificates/${certificateObject.certificateId}.pdf`
+        certificateObject.url = `${AppConfig.HOST}/assets/certificates/${certificateId}.pdf`
 
         // save certificate to mongodb
         await this.#saveCertificateDataToDB(certificateObject)
 
         // generate certificate pdf and url
-        await this.#certificateToPDF(certificateObject.certificateId)
+        await this.#certificateToPDF(certificateId)
 
         return certificateObject
     }
@@ -80,26 +80,16 @@ class Certificate {
     }
 
     /**
-     * searchCertifiate(id)
-     * * search for certificate using id
-     * @param {String} id 
-     * @returns {Object} Returns a javascript Object
-     */
-    static async searchCertificate(id) {
-        return await Repository.searchCertificate(id)
-    }
-
-    /**
      * getCertificates()
      * get all certificates from database
      * @returns {Object} Returns a javascript Object
      */
-    static async getCertificates() {
-        return await Repository.getCertificates()
+    static async getAllCertificates() {
+        return await Repository.getAllCertificates()
     }
 
-    static async getCertificate(certificateId) {
-        return await Repository.getCertificate(certificateId)
+    static async searchCertificate(certificateId) {
+        return await Repository.searchCertificate(certificateId)
     }
 
     /**
@@ -122,7 +112,7 @@ class Certificate {
         // Create a new page
         const page = await browser.newPage();
         // Website URL to export as pdf
-        const certificateUrl = new URL(`${AppConfig.HOST}/certificate?certificateId=${certificateId}`);
+        const certificateUrl = new URL(`${AppConfig.HOST}/certificate/generate?certificateId=${certificateId}`);
         // Open URL in current page
         await page.goto(certificateUrl.href, { waitUntil: 'networkidle0' });
         //To reflect CSS used for screens instead of print

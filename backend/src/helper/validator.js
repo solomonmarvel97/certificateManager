@@ -15,7 +15,7 @@ const Joi = require('joi')
         }
     }
     catch (error) {
-            Honeybadger.notify(error);
+        Logger.notify(error);
             throw error
     }
 }

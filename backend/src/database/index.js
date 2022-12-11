@@ -6,7 +6,6 @@ const client = new Client();
 
 // open client
 client.open(REDIS_URL).catch(err => {
-    Honeybadger.notify(err);
     console.log(err)
 })
 

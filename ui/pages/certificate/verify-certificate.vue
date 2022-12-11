@@ -30,8 +30,6 @@
                 </div>
             </div>
         </div>
-
-
     </section>
 </template>
 
@@ -51,7 +49,7 @@ export default {
             var axios = require('axios');
             var config = {
                 method: 'get',
-                url: `http://localhost:3001/certificate/search/${this.certificateId}`,
+                url: `http://localhost:3001/certificate?certificateId=${this.certificateId}`,
                 headers: {}
             };
 

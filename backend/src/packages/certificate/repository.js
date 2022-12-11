@@ -7,15 +7,8 @@ exports.certificateIdExists = async (email) => {
     return (certificate.length) ? true : false
 }
 
-// search for certificate using certificateId
-exports.searchCertificate = async (certificateId) => {
-    const certificate = await certificateRepository.search()
-    .where('certificateId').eq(certificateId).return.all()
-    return certificate[0]
-}
-
 // get all certificates from database
-exports.getCertificates = async () => {
+exports.getAllCertificates = async () => {
     const certificate = await certificateRepository.search().return.all()
     return certificate
 }
@@ -27,16 +20,18 @@ exports.saveCertificateDataToDB = async (data) => {
         return certificate[0]
     }
     catch (err) {
-        Honeybadger.notify(err); 
+        Logger.notify(err); 
         throw new Error("An error occured while saving the record, please try again later") 
     }
 }
 
-exports.getCertificate = async (certificateId) => {
+// search certificate using certificateId
+exports.searchCertificate = async (certificateId) => {
     const certificate = await certificateRepository.search()
     .where('certificateId').eq(certificateId).return.all()
     if (certificate.length) {
-        return JSON.stringify(certificate[0])
+        let result = JSON.stringify(certificate[0])
+        return JSON.parse(result)
     }
     else {
         throw Error("There's no certificate matching that record")
