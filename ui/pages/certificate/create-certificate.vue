@@ -62,7 +62,7 @@
               <div v-if="!Images">
                 <img class="icon-big mb-1" src="@/assets/icons/upload-icon.svg" alt="upload icon" />
                 <p class="mb-1">Upload Picture</p>
-                <p class="description mb-1">Or you can simply drag and drop</p>
+                <p class="description mb-1">File size should not exceed 1MB</p>
               </div>
 
               <div v-if="Images">

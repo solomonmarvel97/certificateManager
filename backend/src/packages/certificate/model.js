@@ -15,6 +15,7 @@ class Certificate {
     #endDate
     #programme
     #picture
+    
     /**
     * @param {String} name
     * @param {String} email 
@@ -82,12 +83,17 @@ class Certificate {
     /**
      * getCertificates()
      * get all certificates from database
-     * @returns {Object} Returns a javascript Object
+     * @returns {Object} Returns a certificate Object
      */
     static async getAllCertificates() {
         return await Repository.getAllCertificates()
     }
 
+    /**
+     * getCertificates()
+     * searches for a certificate in our database using the certificateId
+     * @returns {Object} Returns a certificate object
+     */
     static async searchCertificate(certificateId) {
         return await Repository.searchCertificate(certificateId)
     }
@@ -96,7 +102,7 @@ class Certificate {
      * saveCertificateDataToDB()
      * This method saves our data to the mongodb database
      * @param {Object} data 
-     * @returns {Object} Returns a javascript Object
+     * @returns {Object} Returns a certificate Object
      */
     async #saveCertificateDataToDB(data) {
         return await Repository.saveCertificateDataToDB(data)
@@ -112,7 +118,7 @@ class Certificate {
         // Create a new page
         const page = await browser.newPage();
         // Website URL to export as pdf
-        const certificateUrl = new URL(`${AppConfig.HOST}/certificate/generate?certificateId=${certificateId}`);
+        const certificateUrl = new URL(`${AppConfig.HOST}/generate?certificateId=${certificateId}`);
         // Open URL in current page
         await page.goto(certificateUrl.href, { waitUntil: 'networkidle0' });
         //To reflect CSS used for screens instead of print
@@ -131,4 +137,4 @@ class Certificate {
     }
 }
 
-module.exports.Certificate = Certificate
+module.exports.CertificateModel = Certificate

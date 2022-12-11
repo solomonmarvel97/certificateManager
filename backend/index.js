@@ -25,8 +25,7 @@ var corsOptions = {
 app.use(cors(corsOptions))
 
 // import route
-const { Router } = require('./src/packages/certificate/controller')
-app.use(Router)
+app.use(require('./src/packages/certificate/route').Router)
 
 // Helmet helps you secure your Express apps by setting various HTTP headers
 const helmet = require("helmet");
@@ -46,7 +45,7 @@ app.use(morgan('combined', { stream: accessLogStream }))
 
 /* set up swagger in the root */
 const swaggerDocument = YAML.load("./spec.yaml");
-app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
 // default error middleware -> You should remove this when debugging
